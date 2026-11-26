@@ -208,3 +208,20 @@
 **文档定稿**：交付报告——8 行 👁 表格转 ✅目检、#15/#17 转 ✅机器+目检、#19 转 ✅机器（回执）、#18/#20 转 ⏸观察、门禁句与 §9 改为收官态；图例注明用户确认时间。
 
 **Git 初始化**：见仓库首次提交（E8 同日完成，提交内容含全部源码/测试/构建脚本/文档；构建产物 `index.js`/`client.js` 与缓存目录按 `.gitignore` 排除）。
+
+## E9 · 2026-11-27 · 命名统一收口 + GitHub 信息核验
+
+**背景**：用户在 GitHub 创建仓库并自行执行 `git remote add origin … && git push -u origin main`；本轮任务＝核验真实远端状态（不凭命令回执认定成功）、按最终命名表收口全部文档、补 package.json 仓库元数据。
+
+| 步骤 | 操作 | 回执 |
+|---|---|---|
+| 1 | `gh api repos/mycherish/dsh-plugin-cealum-tint` | 仓库已创建 2026-11-26 14:34 UTC，**visibility: PRIVATE**；`/branches` = **0**、`size: 0` → **空仓库，无任何提交，推送未发生** |
+| 2 | `git remote -v` / `git ls-remote origin main` | 均失败：remote 列表为空，报 `'origin' does not appear to be a git repository` → 用户命令在本工作目录**未生效**；遵边界未擅自加 remote、未推送，仅报告 |
+| 3 | 命名扫描（全仓 grep） | `Caelum`（错拼）0 处；历史候选名 0 处；`cealumTint`（驼峰命名空间）0 处——实际命名空间为 patch 行 id `cealum-tint`（kebab），与命名表该行不一致，如实标注不改码（改驼峰会令已存配置失联） |
+| 4 | 迁移别名复核 | `chatgpt-green` → `deep-green` 别名确认保留（历史兼容代码）；README 命名沿革加注说明 |
+| 5 | package.json 元数据 | 补 `repository` / `homepage` / `bugs` 三字段；`node -e "JSON.parse"` 与 prettier 校验通过 |
+| 6 | 文档完善 | README 双语（仓库地址/克隆构建/文档索引/贡献/命名沿革）；开发计划新增 §17 命名规范定稿；交付报告头部补仓库信息；就绪度审计三处陈旧状态修正 + 附录复核更新；本日志 E9 |
+
+**测试回归**：未触碰 `src/`、`tests/`，58/58 基线维持（最近实测 2026-11-26 21:49）。
+
+**停止点（已解除）**：报告与 `git diff` 呈现后，用户于 2026-11-27 确认三项——① 命名空间**维持 `cealum-tint`**（`cealumTint` 驼峰方案否决，不改代码，§17 已记录确认）；② 授权 commit 本轮 7 文件修订；③ 授权 `git remote add origin … && git push -u origin main`。本提交即上述授权的执行；推送回执以远端 `origin/main` 与聊天报告为准。

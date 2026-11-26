@@ -4,6 +4,39 @@ Colour the bubbles of the messages **you** send in DeepSeek Harness — deep
 green by default, anything you like after that. Replies, tool cards, thinking
 and the composer stay exactly as the app shipped them.
 
+**Source**: <https://github.com/mycherish/dsh-plugin-cealum-tint> ·
+Issues: <https://github.com/mycherish/dsh-plugin-cealum-tint/issues>
+
+## Get it
+
+```sh
+git clone https://github.com/mycherish/dsh-plugin-cealum-tint.git
+cd dsh-plugin-cealum-tint
+npm install && npm run verify
+```
+
+Install it into a Desktop profile as a `link:` dependency of
+`~/.dsh/profiles/desktop`, registered in the profile's `dsh.profile.bundles`
+(see the development plan for the full walkthrough).
+
+## Project docs
+
+- Development log (E0–E9):
+  [docs/IMPLEMENTATION-LOG.md](docs/IMPLEMENTATION-LOG.md)
+- Delivery & acceptance report:
+  [docs/DELIVERY-REPORT.md](docs/DELIVERY-REPORT.md)
+- Development plan incl. the naming spec (§17):
+  [docs/DEVELOPMENT-PLAN.md](docs/DEVELOPMENT-PLAN.md)
+
+## Naming history
+
+The final name is **Cealum Tint** (云岫着色) — spelling is intentionally
+"Cealum". Earlier working names dropped during design: *Cealum Hue / Chroma /
+Bubble / Glow / Palette / Prism / Canvas*, the typo variant *Caelum Tint*, and
+*User Message Color*. They are deprecated and appear nowhere in code. The old
+preset id `chatgpt-green` survives only as a migration alias that maps old
+saved settings to `deep-green`.
+
 ## Features
 
 - **Five presets** — Deep Green `#2C6732`, Ocean Blue `#245B82`, Purple
@@ -66,3 +99,10 @@ Artifacts: `index.js` (Host), `client.js` (Browser, ModuleLoader envelope).
 - Does not read or modify chat history, other plugins, or DSH core.
 - Removal clears the stylesheet (marked `data-plugin="cealum-tint"`), the
   custom properties, and the saved configuration fields.
+
+## Contributing
+
+Issues and pull requests are welcome at
+<https://github.com/mycherish/dsh-plugin-cealum-tint>. Please run
+`npm run verify` before submitting and keep changes covered by the existing
+tests where practical.

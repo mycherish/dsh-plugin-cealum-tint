@@ -3,6 +3,34 @@
 在 DeepSeek Harness 中为你**自己发送**的消息气泡着色——默认深绿，
 也可以选任何颜色。AI 回复、工具卡片、思考与输入框保持原生不变。
 
+**源码仓库**：<https://github.com/mycherish/dsh-plugin-cealum-tint> ·
+问题反馈：<https://github.com/mycherish/dsh-plugin-cealum-tint/issues>
+
+## 获取
+
+```sh
+git clone https://github.com/mycherish/dsh-plugin-cealum-tint.git
+cd dsh-plugin-cealum-tint
+npm install && npm run verify
+```
+
+以 `link:` 依赖方式装入 Desktop Profile（`~/.dsh/profiles/desktop`），并在
+Profile 的 `dsh.profile.bundles` 中注册即可启用；完整步骤见开发计划。
+
+## 项目文档
+
+- 实施日志（E0–E9）：[docs/IMPLEMENTATION-LOG.md](docs/IMPLEMENTATION-LOG.md)
+- 交付与验收报告：[docs/DELIVERY-REPORT.md](docs/DELIVERY-REPORT.md)
+- 开发计划（含 §17 命名规范）：[docs/DEVELOPMENT-PLAN.md](docs/DEVELOPMENT-PLAN.md)
+
+## 命名沿革
+
+项目定名 **Cealum Tint（云岫着色）**——拼写就是 "Cealum"，属有意为之。
+设计过程中弃用过的候选名：*Cealum Hue / Chroma / Bubble / Glow / Palette /
+Prism / Canvas*、错拼变体 *Caelum Tint*、以及 *User Message Color*；这些
+名字均已弃用，代码中不出现。旧预置 ID `chatgpt-green` 仅作为迁移别名保留，
+用于把旧存档配置映射到 `deep-green`。
+
 ## 功能
 
 - **五款预设**——深绿 `#2C6732`、海洋蓝 `#245B82`、紫罗兰 `#604B83`、
@@ -62,3 +90,8 @@ npm run verify   # 构建 + 类型检查 + 测试
 - 不读取、不修改聊天历史，不碰其他插件与 DSH 核心。
 - 卸载时清除样式表（标记 `data-plugin="cealum-tint"`）、自定义属性与已
   保存的配置字段。
+
+## 参与贡献
+
+欢迎在 <https://github.com/mycherish/dsh-plugin-cealum-tint> 提 Issue 与
+Pull Request。提交前请运行 `npm run verify`，并尽量让改动被现有测试覆盖。

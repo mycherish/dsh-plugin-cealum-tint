@@ -3,6 +3,7 @@
 - 日期：2026-11-26
 - 目标环境：DeepSeek Harness (`@deepseek-ai/dsh`) **0.2.2-rc.5** · desktop profile · `~/.dsh/profiles/desktop`
 - 插件：`dsh-plugin-cealum-tint` 0.1.0（bundle：Host 行 `cealum-tint` + 客户端 `dsh.client`）
+- 源码仓库：<https://github.com/mycherish/dsh-plugin-cealum-tint>（私有；推送状态见实施日志 E9）
 - 实施依据：`docs/DEVELOPMENT-PLAN.md`（含 §16 审核修正）
 - 过程记录：`docs/IMPLEMENTATION-LOG.md`（E0/E1/E2）
 

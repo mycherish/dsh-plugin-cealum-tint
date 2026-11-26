@@ -4,6 +4,14 @@
   "private": false,
   "license": "MIT",
   "description": "Customize your conversation colors. Colour the user message bubbles in DeepSeek Harness.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mycherish/dsh-plugin-cealum-tint.git"
+  },
+  "homepage": "https://github.com/mycherish/dsh-plugin-cealum-tint#readme",
+  "bugs": {
+    "url": "https://github.com/mycherish/dsh-plugin-cealum-tint/issues"
+  },
   "type": "module",
   "icon": "./icon.svg",
   "engines": {
