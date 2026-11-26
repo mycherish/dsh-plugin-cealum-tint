@@ -29,13 +29,23 @@ dsh plugin --profile desktop add \
   'git+https://github.com/mycherish/dsh-plugin-cealum-tint.git#v0.1.0-rc.3'
 ```
 
-pnpm 10 默认拦截依赖构建脚本，而本仓库源码树需要在 `prepare` 步骤构建
-`index.js` / `client.js`。若 pnpm 提示 "Ignored build scripts"，批准后重跑：
+pnpm 10 会拦截依赖构建脚本，而本仓库源码树要在 `prepare` 步骤构建
+`index.js` / `client.js`。首次运行会报 pnpm 的
+`ERR_PNPM_GIT_DEP_PREPARE_NOT_ALLOWED`，并打印需要放行的条目。放行一次后
+重跑同一条 add 命令：
 
 ```sh
-dsh plugin --profile desktop approve-builds   # 按提示选择 dsh-plugin-cealum-tint
+# 1. 在 ~/.dsh/profiles/desktop/pnpm-workspace.yaml 中添加
+#    （pnpm 10 的键名是 onlyBuiltDependencies；更新的 pnpm 会打印 allowBuilds）：
+onlyBuiltDependencies:
+  - "dsh-plugin-cealum-tint"
+
+# 2. 重跑上面同一条 `dsh plugin --profile desktop add ...`
 ```
-<!-- CONFIRM: git 渠道实测通过后核对 dsh CLI 的 approve-builds 确切用法（pnpm approve-builds 还是 allowBuilds 键） -->
+
+`dsh` 会原样转发 pnpm 的提示，键名与包名照抄输出即可，无需猜测。以上流程已用
+pnpm 10.26 端到端实测：第二次运行会拉源码、经 `prepare` 构建（esbuild，0 漏洞）
+并注册插件。Release 安装包与 GUI 渠道都不需要这一步——包内自带构建产物。
 
 ### 安装 —— npm（发布前此节不出现在正式文档）
 

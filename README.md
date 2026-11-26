@@ -32,14 +32,25 @@ dsh plugin --profile desktop add \
   'git+https://github.com/mycherish/dsh-plugin-cealum-tint.git#v0.1.0-rc.3'
 ```
 
-pnpm 10 blocks dependency build scripts by default, and this git tree builds
-`index.js` / `client.js` in a `prepare` step. If pnpm prints its
-"Ignored build scripts" notice, approve the project and re-run:
+pnpm 10 blocks dependency build scripts, and this git tree builds
+`index.js` / `client.js` in a `prepare` step. The first run fails with pnpm's
+`ERR_PNPM_GIT_DEP_PREPARE_NOT_ALLOWED` error and prints the allow-list entry to
+add. Approve the package once, then re-run the same add command:
 
 ```sh
-dsh plugin --profile desktop approve-builds   # pnpm-flow wrapper; pick dsh-plugin-cealum-tint
+# 1. in ~/.dsh/profiles/desktop/pnpm-workspace.yaml add
+#    (pnpm 10 names the key onlyBuiltDependencies; newer pnpm prints allowBuilds):
+onlyBuiltDependencies:
+  - "dsh-plugin-cealum-tint"
+
+# 2. re-run the same `dsh plugin --profile desktop add ...` command
 ```
-<!-- CONFIRM: verify exact approve flow for dsh CLI (pnpm approve-builds vs allowBuilds key) during the git-route acceptance test -->
+
+`dsh` echoes pnpm's suggestion verbatim, so you never have to guess the key or
+the package name. Verified end-to-end with pnpm 10.26: second run fetches the
+source, builds via `prepare` (esbuild, 0 audit findings), and registers the
+plugin. The Release-tarball and GUI routes need none of this — packages carry
+prebuilt files.
 
 ### Install — npm (until published: not yet)
 
