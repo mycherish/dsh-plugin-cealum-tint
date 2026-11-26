@@ -13,8 +13,8 @@
 |---|---|
 | DSH | `@deepseek-ai/dsh` 0.2.2-rc.5 |
 | Profile | `desktop` |
-| Profile 目录 | `/Users/xuweidong/.dsh/profiles/desktop` |
-| 项目目录 | `/Users/xuweidong/www/dsh/dsh-plugin-cealum-tint` |
+| Profile 目录 | `~/.dsh/profiles/desktop` |
+| 项目目录 | `~/www/dsh/dsh-plugin-cealum-tint` |
 | 目录现状 | 仅 `.memsearch/`（非项目文件），无用户文件，可安全新建 |
 
 **动作**
@@ -82,7 +82,7 @@
 
 **安装**
 
-- `plugin_manager install_bundle target=/Users/xuweidong/www/dsh/dsh-plugin-cealum-tint` → `stage:"enable", enabled:true, application:"applied"`，pnpm `+ dsh-plugin-cealum-tint 0.1.0 <- ../../../www/dsh/dsh-plugin-cealum-tint`（log：`operation-ui3DMu/pnpm.log`）。
+- `plugin_manager install_bundle target=~/www/dsh/dsh-plugin-cealum-tint` → `stage:"enable", enabled:true, application:"applied"`，pnpm `+ dsh-plugin-cealum-tint 0.1.0 <- ../../../www/dsh/dsh-plugin-cealum-tint`（log：`operation-ui3DMu/pnpm.log`）。
 
 **Host 运行时验证（按证据逐条）**
 

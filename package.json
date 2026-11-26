@@ -65,6 +65,8 @@
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
+    "prepare": "node scripts/build.mjs",
+    "prepublishOnly": "npm run verify",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"tests/**/*.ts\" \"scripts/**/*.mjs\" \"package.json\" \"cordis.patch.yml\"",
@@ -77,9 +79,9 @@
   "devDependencies": {
     "@types/node": "^22.10.2",
     "@types/react": "^18.3.18",
-    "esbuild": "^0.24.2",
+    "esbuild": "^0.28.2",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
-    "vitest": "^2.1.8"
+    "vitest": "^5.1.2"
   }
 }

@@ -9,15 +9,93 @@ Issues: <https://github.com/mycherish/dsh-plugin-cealum-tint/issues>
 
 ## Get it
 
+**Requirements** — DeepSeek Harness Desktop (verified on 0.2.2-rc.5); Node.js
+≥ 22; [pnpm](https://pnpm.io) ≥ 10 on your `PATH` for the git route
+(pre-installed with most DSH setups). The profile you install into must have
+been opened once in DeepSeek Harness before the first CLI install.
+
+### Install — Release tarball (no build step)
+
+```sh
+dsh plugin --profile desktop add \
+  https://github.com/mycherish/dsh-plugin-cealum-tint/releases/download/v0.1.0-rc.3/dsh-plugin-cealum-tint-0.1.0-rc.3.tgz
+```
+
+Prefer a local file? Download the `.tgz` from
+[Releases](https://github.com/mycherish/dsh-plugin-cealum-tint/releases) and
+point the command at it. The GUI route works too: **Plugins ▸ Add plugin**.
+
+### Install — from git (builds on your machine)
+
+```sh
+dsh plugin --profile desktop add \
+  'git+https://github.com/mycherish/dsh-plugin-cealum-tint.git#v0.1.0-rc.3'
+```
+
+pnpm 10 blocks dependency build scripts by default, and this git tree builds
+`index.js` / `client.js` in a `prepare` step. If pnpm prints its
+"Ignored build scripts" notice, approve the project and re-run:
+
+```sh
+dsh plugin --profile desktop approve-builds   # pnpm-flow wrapper; pick dsh-plugin-cealum-tint
+```
+<!-- CONFIRM: verify exact approve flow for dsh CLI (pnpm approve-builds vs allowBuilds key) during the git-route acceptance test -->
+
+### Install — npm (until published: not yet)
+
+Will ship as `dsh-plugin-cealum-tint` on npm; this section lands on the day
+the package is first published.
+
+### After install
+
+Open **Settings ▸ 云岫着色 (Cealum Tint)**, pick a preset or any hex colour,
+and both your manual messages and your answers to AI confirmation questions
+take the colour. Changes save and apply live.
+
+### Update
+
+Re-run the install command with the newer version (the tarball route always
+wins on speed):
+
+```sh
+dsh plugin --profile desktop add \
+  https://github.com/mycherish/dsh-plugin-cealum-tint/releases/download/v0.1.0-rc.3/dsh-plugin-cealum-tint-0.1.0-rc.3.tgz
+```
+
+### Uninstall
+
+```sh
+dsh plugin --profile desktop remove dsh-plugin-cealum-tint
+```
+
+Removal also clears the injected stylesheets and colour variables (the
+plugin's cleanup contract), returning bubbles to their native colours.
+
+### Ask your DSH agent to install it
+
+Paste this to any agent in DeepSeek Harness:
+
+```text
+Please install the DeepSeek Harness plugin "Cealum Tint" (云岫着色) into this
+profile. Download the verified tarball asset of the latest release from
+https://github.com/mycherish/dsh-plugin-cealum-tint/releases, save it locally,
+install it with the plugin management tooling (install_bundle with the saved
+tarball's extracted directory, or the CLI equivalent:
+dsh plugin --profile <this profile> add <saved .tgz>), enable it, and confirm
+the "cealum-tint" entry appears in the plugin registry. Setup page lives in
+Settings ▸ 云岫着色.
+```
+
+### From source
+
 ```sh
 git clone https://github.com/mycherish/dsh-plugin-cealum-tint.git
 cd dsh-plugin-cealum-tint
 npm install && npm run verify
 ```
 
-Install it into a Desktop profile as a `link:` dependency of
-`~/.dsh/profiles/desktop`, registered in the profile's `dsh.profile.bundles`
-(see the development plan for the full walkthrough).
+then install the checkout directory into a profile (`dsh plugin --profile
+<name> add <checkout-dir>` or **Plugins ▸ Add plugin**).
 
 ## Project docs
 

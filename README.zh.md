@@ -8,14 +8,84 @@
 
 ## 获取
 
+**环境要求**——DeepSeek Harness Desktop（在 0.2.2-rc.5 实测）；Node.js ≥ 22；
+git 渠道需要 `PATH` 上有 [pnpm](https://pnpm.io) ≥ 10（多数 DSH 环境已自带）。
+首次用 CLI 安装前，目标 Profile 需在 Desktop 中打开过一次。
+
+### 安装 —— Release 安装包（无需本地构建）
+
+```sh
+dsh plugin --profile desktop add \
+  https://github.com/mycherish/dsh-plugin-cealum-tint/releases/download/v0.1.0-rc.3/dsh-plugin-cealum-tint-0.1.0-rc.3.tgz
+```
+
+也可以从 [Releases](https://github.com/mycherish/dsh-plugin-cealum-tint/releases)
+下载 `.tgz` 后把命令指向本地文件； 或在应用内走 **插件 ▸ 添加插件**。
+
+### 安装 —— 从 git（在本机构建）
+
+```sh
+dsh plugin --profile desktop add \
+  'git+https://github.com/mycherish/dsh-plugin-cealum-tint.git#v0.1.0-rc.3'
+```
+
+pnpm 10 默认拦截依赖构建脚本，而本仓库源码树需要在 `prepare` 步骤构建
+`index.js` / `client.js`。若 pnpm 提示 "Ignored build scripts"，批准后重跑：
+
+```sh
+dsh plugin --profile desktop approve-builds   # 按提示选择 dsh-plugin-cealum-tint
+```
+<!-- CONFIRM: git 渠道实测通过后核对 dsh CLI 的 approve-builds 确切用法（pnpm approve-builds 还是 allowBuilds 键） -->
+
+### 安装 —— npm（发布前此节不出现在正式文档）
+
+npm 包 `dsh-plugin-cealum-tint` 首次发布当天补充本节。
+
+### 安装后
+
+打开 **设置 ▸ 云岫着色**，选预设或填任意十六进制颜色；手动消息与 AI 确认
+流程的回答会一起变色，即时生效、自动保存。
+
+### 更新
+
+换新版本号重跑安装命令即可（安装包渠道）：
+
+```sh
+dsh plugin --profile desktop add \
+  https://github.com/mycherish/dsh-plugin-cealum-tint/releases/download/v0.1.0-rc.3/dsh-plugin-cealum-tint-0.1.0-rc.3.tgz
+```
+
+### 卸载
+
+```sh
+dsh plugin --profile desktop remove dsh-plugin-cealum-tint
+```
+
+卸载同时按清理契约移除注入的样式表与颜色变量，气泡回到原生根色。
+
+### 让 DSH Agent 帮你安装
+
+把下面这段粘贴给任意 DeepSeek Harness 会话：
+
+```text
+请把 DeepSeek Harness 插件 "Cealum Tint"（云岫着色）安装到当前 Profile。
+从 https://github.com/mycherish/dsh-plugin-cealum-tint/releases 获取最新
+Release 的已验证 tarball 附件，保存到本地后用插件管理工具安装
+（对解包目录执行 install_bundle，或等价 CLI：dsh plugin --profile <本 Profile> add <tgz 路径>），
+完成后启用，并确认插件注册表出现 "cealum-tint" 条目。设置页位于
+设置 ▸ 云岫着色。
+```
+
+### 从源码
+
 ```sh
 git clone https://github.com/mycherish/dsh-plugin-cealum-tint.git
 cd dsh-plugin-cealum-tint
 npm install && npm run verify
 ```
 
-以 `link:` 依赖方式装入 Desktop Profile（`~/.dsh/profiles/desktop`），并在
-Profile 的 `dsh.profile.bundles` 中注册即可启用；完整步骤见开发计划。
+然后把检出目录装入 Profile（`dsh plugin --profile <name> add <目录>` 或
+**插件 ▸ 添加插件**）。
 
 ## 项目文档
 

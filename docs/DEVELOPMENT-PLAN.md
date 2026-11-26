@@ -16,7 +16,7 @@
 | 描述 | Customize your conversation colors. |
 | npm 包名 | `dsh-plugin-cealum-tint` |
 | Loader entry id / 配置命名空间 | `cealum-tint`（⚠️ 命名空间 = patch 行 id，**不是**包名，见 §10） |
-| 本地目录 | `/Users/xuweidong/www/dsh/dsh-plugin-cealum-tint` |
+| 本地目录 | `~/www/dsh/dsh-plugin-cealum-tint` |
 | CSS 命名空间 | `cealum-tint-` |
 | 目标 Profile | `desktop`（Desktop 独立客户端，只装这一个） |
 | 核心机制 | 1 个 Host 行（Config）+ 1 个 Client 行（owned style + settings.section） |
@@ -32,8 +32,8 @@
 | DSH 版本 | **`@deepseek-ai/dsh` 0.2.2-rc.5** | `$DSH_INSTALL_DIR/package.json` → `version` |
 | 分发形态 | 打包 Desktop（`app.asar`） | 安装路径含 `/Contents/Resources/app.asar/` |
 | Profile | **`desktop`** | `$DSH_PROFILE` |
-| Profile 目录 | `/Users/xuweidong/.dsh/profiles/desktop` | `$DSH_PROFILE_DIR` |
-| DSH_HOME | `/Users/xuweidong/.dsh` | `$DSH_HOME` |
+| Profile 目录 | `~/.dsh/profiles/desktop` | `$DSH_PROFILE_DIR` |
+| DSH_HOME | `~/.dsh` | `$DSH_HOME` |
 | 运行中 Web GUI | `http://127.0.0.1:64812` | `$DSH_WEB_URL` |
 | Electron 运行时 | `/Applications/DeepSeek Harness.app/Contents/MacOS/DeepSeek Harness` | `$DSH_NODE_EXECUTABLE` |
 | 主题 | `ui-theme.config.preference: dark` | `profile/cordis.patch.yml:66-69` |
@@ -559,7 +559,7 @@ h(UserMessageBubble, { 'data-message-bubble': '' }, '这是一条测试消息，
 ## 9. 项目目录结构
 
 ```
-/Users/xuweidong/www/dsh/dsh-plugin-cealum-tint/
+~/www/dsh/dsh-plugin-cealum-tint/
 ├── package.json                 # exports / dsh.bundle.patch / dsh.client
 ├── cordis.patch.yml             # insert: id=cealum-tint, name=dsh-plugin-cealum-tint
 ├── index.js                     # [构建产物] Host 半
@@ -648,7 +648,7 @@ h(UserMessageBubble, { 'data-message-bubble': '' }, '这是一条测试消息，
 
 ```bash
 # 方式一：CLI
-dsh plugin --profile desktop add link:/Users/xuweidong/www/dsh/dsh-plugin-cealum-tint
+dsh plugin --profile desktop add link:~/www/dsh/dsh-plugin-cealum-tint
 
 # 方式二：GUI → Plugins → Add plugin → 选择该目录（本地目录安装为 link，不复制）
 # 方式三（Agent 侧）：plugin_manager action:install_bundle, target:<绝对包目录>
@@ -819,7 +819,7 @@ dsh plugin --profile desktop add link:/Users/xuweidong/www/dsh/dsh-plugin-cealum
 ## 15. 下一阶段可执行的开发任务说明
 
 ```
-在 /Users/xuweidong/www/dsh/dsh-plugin-cealum-tint 开发 DSH 0.2.2-rc.5 插件 dsh-plugin-cealum-tint
+在 ~/www/dsh/dsh-plugin-cealum-tint 开发 DSH 0.2.2-rc.5 插件 dsh-plugin-cealum-tint
 （Cealum Tint / 云岫着色）：把「用户发送的聊天消息气泡」背景改为可配置颜色（默认 #2C6732），并提供独立设置页。
 
 【已确认事实，直接采用】

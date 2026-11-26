@@ -129,7 +129,7 @@ dsh-plugin-cealum-tint/
 
 ## 6. Profile 安装状态
 
-- `~/.dsh/profiles/desktop/package.json` → `dsh.profile.bundles` 含 `dsh-plugin-cealum-tint`；`dependencies."dsh-plugin-cealum-tint": "link:/Users/xuweidong/www/dsh/dsh-plugin-cealum-tint"`；**profile 文件由 plugin_manager 引擎写入，全程未手改** ✅
+- `~/.dsh/profiles/desktop/package.json` → `dsh.profile.bundles` 含 `dsh-plugin-cealum-tint`；`dependencies."dsh-plugin-cealum-tint": "link:~/www/dsh/dsh-plugin-cealum-tint"`；**profile 文件由 plugin_manager 引擎写入，全程未手改** ✅
 - 安装方式：`plugin_manager install_bundle`（pnpm `+ dsh-plugin-cealum-tint 0.1.0`，log `operation-ui3DMu/pnpm.log`）
 - `node_modules/dsh-plugin-cealum-tint` → live symlink；9 个交付文件 sha256 与工作区逐一 MATCH
 - GUI 已通过 `unlag_refresh` 刷新（"插件已换成新代码"），client runner 实时在线（client 侧 inspect 均应答）
