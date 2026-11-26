@@ -1,0 +1,9 @@
+node_modules/
+.npm-cache/
+dist/
+index.js
+client.js
+*.log
+.DS_Store
+coverage/
+.memsearch/

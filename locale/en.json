@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Cealum Tint",
+    "description": "Colour the bubbles of the messages you send: five presets or any hex colour, an automatic or explicit text colour with WCAG contrast read-out, and a live preview. Replies, tool cards and the composer stay native. Settings live in Settings > Cealum Tint; turn the top switch off to return to native bubbles at any time.",
+    "detail": "docs/DETAIL.md"
+  }
+}

@@ -1,0 +1,15 @@
+# Cealum Tint bundle patch.
+#
+# Applied as a profile bundle layer (the `dsh.bundle.patch` manifest field in
+# package.json) over dsh-base. The single Host row below owns the plugin's
+# configuration schema and its persistence; the browser half declared by
+# package.json -> dsh.client renders the settings page and injects the bubble
+# stylesheet.
+#
+# The row id is load-bearing: DSH derives the settings namespace from the
+# Loader entry id (`entry.options.id`), so `cealum-tint` is the namespace the
+# client half reads with `ctx.configForms.get('cealum-tint')`. It is NOT the
+# package name.
+- insert:
+    - id: cealum-tint
+      name: 'dsh-plugin-cealum-tint'

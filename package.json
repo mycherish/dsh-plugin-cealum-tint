@@ -1,0 +1,77 @@
+{
+  "name": "dsh-plugin-cealum-tint",
+  "version": "0.1.0",
+  "private": false,
+  "license": "MIT",
+  "description": "Customize your conversation colors. Colour the user message bubbles in DeepSeek Harness.",
+  "type": "module",
+  "icon": "./icon.svg",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "cordis",
+    "plugin",
+    "theme",
+    "color",
+    "bubble",
+    "chat",
+    "cealum-tint"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-locale"
+      ],
+      "external": [
+        "@deepseek-ai/dsh-client-ui-primitives"
+      ]
+    }
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "docs",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"tests/**/*.ts\" \"scripts/**/*.mjs\" \"package.json\" \"cordis.patch.yml\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"tests/**/*.ts\" \"scripts/**/*.mjs\" \"package.json\" \"cordis.patch.yml\"",
+    "verify": "node scripts/build.mjs && tsc --noEmit -p tsconfig.json && vitest run"
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "^3.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "esbuild": "^0.24.2",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}
