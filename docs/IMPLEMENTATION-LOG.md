@@ -240,7 +240,7 @@
 
 **Profile 说明**：live link 指向本目录，版本显示随 DSH 下次加载/materialize 生效为 `0.1.0-rc.1`（未手工改 Profile，遵边界）；#18 重启观察项不受影响。
 
-## E11 · 2026-11-26 23:2x · 确认回复（question-reply）着色
+## E11 · 2026-11-26 23:25（编码）/ 23:33（版本化回执） · 确认回复（question-reply）着色
 
 **需求与边界**（用户指令，未扩展）：AI 确认流程回答 = 手动消息同色；仅 `question-reply` + `outcome="answered"`；未回答卡 / AI 回复 / 审批卡原样；不改宿主、不加配置项、命名空间 `cealum-tint` 不变、不动 compat 判定；现有 58 测试不得削弱。基线：HEAD `ac0754c`（clean）。
 
@@ -257,3 +257,14 @@
 **验证实测**（2026-11-26 23:26）：`npm run verify`（build + tsc strict + vitest）✅ exit 0；**69/69（7 文件）** = 基线 58 原样 + 新增 11；`prettier --check` 改动文件全绿；产物复核：`client.js` 双规则模板、三个 `data-plugin-css` 逻辑名、`specific-bubble` 恰 2 处。
 
 **版本**：仍 `0.1.0-rc.1`；`0.1.0-rc.2` 待 GUI 目检（报告 §11.1）+ 用户确认后执行，不触碰 `v0.1.0-rc.1` tag/Release。 DEVELOPMENT-PLAN §4 表格中"ask_user_question 回填不受影响"一行自本次起由本条目取代（该表为时点审计记录，不回改）。
+
+**版本化回执（23:33）**：用户双确认（ask 回执在案）——① GUI 验收通过，创建 rc.2 并推送；② 立即刷新 GUI（`unlag_refresh` 回执："刷新 · 插件已换成新代码"）。执行序列：
+
+| 步骤 | 操作 | 回执 |
+|---|---|---|
+| 1 | `git commit` feat（7 文件：两源文件 + 新测试 + 双 README + 两 docs） | `5c89fd1`（+344/−15）。**记录**：commit 正文笔误 `BUBBLE_LANG`（应为 `BUBBLE_CSS`）；遵 append-only 不改写已建提交，特此存照 |
+| 2 | `npm version 0.1.0-rc.2 --tag-version-prefix v -m "release: v%s — 确认回复（question-reply）着色（GUI 验收后授权）"` | `9fecd38`；pkg 1 处 / lock 2 处（root+packages[""]）同步 `0.1.0-rc.2`；**annotated tag** `v0.1.0-rc.2`（`git cat-file -t` = tag）✅ |
+| 3 | 推送 | 首次推送 120s 超时转后台，最终报 `Connection reset by peer`（exit 128，与同日 `ls-remote` 挂起同源网络问题）；**重试一次即成功**：`ac0754c..9fecd38 main -> main`；`* [new tag] v0.1.0-rc.2 -> v0.1.0-rc.2` ✅ |
+| 4 | 远端复核（`gh api`） | remote main HEAD = `9fecd38`；`refs/tags/v0.1.0-rc.2 -> b10bda5 (tag)`；Release 列表仅 `v0.1.0-rc.1` Pre-release → rc.2 **未建 Release、未 npm publish**，rc.1 一切未动 ✅ |
+
+**收尾**：源/测试相比 69/69 验证时零改动，未重跑（构建产物 `client.js`/`index.js` 为 gitignored 生成物，与验证时一致）；本地 tag/commit 与远端一致（`git status` clean）。

@@ -210,7 +210,7 @@ div[data-reply-outcome="answered"] > div:first-child > :first-child
 
 **验证**（2026-11-26 23:26 实测）：`npm test` 与 `npm run verify`（build + `tsc --noEmit` strict + vitest）→ **69/69 通过（7 文件）**；基线 58 例原样保留、零削弱，新增 11 例全绿；产物冒烟：`client.js` 内两条规则模板 + 三个 `data-plugin-css` 逻辑名（`user-bubble` / `question-reply` / `section`）与 disposer 顺序就位。
 
-**版本**：包/lock 仍为 `0.1.0-rc.1`；计划版本 `0.1.0-rc.2`，**待 GUI 验收与用户确认后方执行 `npm version`**；不触碰 `v0.1.0-rc.1` tag 与 Release。
+**版本回执（2026-11-26 23:33）**：用户 GUI 验收后双确认（ask 回执在案；`unlag_refresh` 回执"插件已换成新代码"）。已执行：feat 提交 `5c89fd1`（+344/−15，7 文件；commit 正文 `BUBBLE_LANG` 系 `BUBBLE_CSS` 笔误，append-only 存照不改写）→ `npm version 0.1.0-rc.2` = 提交 `9fecd38` + **annotated tag** `v0.1.0-rc.2`（pkg 1 处 / lock 2 处同步）→ 推送（首次 `Connection reset` 失败，重试成功）→ `gh api` 复核 remote main = `9fecd38`、`refs/tags/v0.1.0-rc.2 -> b10bda5 (tag)`。**rc.2 未建 GitHub Release、未 npm publish；`v0.1.0-rc.1` tag 与 Pre-release 原样未动。** 执行细目见 `docs/IMPLEMENTATION-LOG.md` E11 版本化回执表。
 
 **GUI 目检清单（§11.1，待用户执行）**：
 
