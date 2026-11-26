@@ -1,5 +1,7 @@
 # Cealum Tint
 
+**English** | [简体中文](README.zh.md)
+
 Colour the bubbles of the messages **you** send in DeepSeek Harness — deep
 green by default, anything you like after that. Replies, tool cards, thinking
 and the composer stay exactly as the app shipped them.
@@ -52,10 +54,15 @@ source, builds via `prepare` (esbuild, 0 audit findings), and registers the
 plugin. The Release-tarball and GUI routes need none of this — packages carry
 prebuilt files.
 
-### Install — npm (until published: not yet)
+### Install — npm
 
-Will ship as `dsh-plugin-cealum-tint` on npm; this section lands on the day
-the package is first published.
+```sh
+dsh plugin --profile desktop add dsh-plugin-cealum-tint                # latest
+dsh plugin --profile desktop add dsh-plugin-cealum-tint@0.1.0-rc.3    # pinned
+```
+
+The package is a pre-release; `latest` tracks the newest rc until 1.0.
+Re-running the same command upgrades in place.
 
 ### After install
 
@@ -65,8 +72,8 @@ take the colour. Changes save and apply live.
 
 ### Update
 
-Re-run the install command with the newer version (the tarball route always
-wins on speed):
+Re-run the install command with the newer version (any route works the same
+way; the tarball route always wins on speed):
 
 ```sh
 dsh plugin --profile desktop add \

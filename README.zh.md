@@ -1,5 +1,7 @@
 # Cealum Tint（云岫着色）
 
+[English](README.md) | **简体中文**
+
 在 DeepSeek Harness 中为你**自己发送**的消息气泡着色——默认深绿，
 也可以选任何颜色。AI 回复、工具卡片、思考与输入框保持原生不变。
 
@@ -47,9 +49,14 @@ onlyBuiltDependencies:
 pnpm 10.26 端到端实测：第二次运行会拉源码、经 `prepare` 构建（esbuild，0 漏洞）
 并注册插件。Release 安装包与 GUI 渠道都不需要这一步——包内自带构建产物。
 
-### 安装 —— npm（发布前此节不出现在正式文档）
+### 安装 —— npm
 
-npm 包 `dsh-plugin-cealum-tint` 首次发布当天补充本节。
+```sh
+dsh plugin --profile desktop add dsh-plugin-cealum-tint                # 最新
+dsh plugin --profile desktop add dsh-plugin-cealum-tint@0.1.0-rc.3    # 固定版本
+```
+
+npm 包当前为预发布状态；1.0 前 `latest` 跟随最新 rc。重跑同一条命令即原地升级。
 
 ### 安装后
 
@@ -58,7 +65,7 @@ npm 包 `dsh-plugin-cealum-tint` 首次发布当天补充本节。
 
 ### 更新
 
-换新版本号重跑安装命令即可（安装包渠道）：
+换新版本号重跑安装命令即可（三个渠道同理；安装包渠道最快）：
 
 ```sh
 dsh plugin --profile desktop add \
