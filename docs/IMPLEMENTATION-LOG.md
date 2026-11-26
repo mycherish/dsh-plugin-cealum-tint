@@ -225,3 +225,17 @@
 **测试回归**：未触碰 `src/`、`tests/`，58/58 基线维持（最近实测 2026-11-26 21:49）。
 
 **停止点（已解除）**：报告与 `git diff` 呈现后，用户于 2026-11-26 确认三项——① 命名空间**维持 `cealum-tint`**（`cealumTint` 驼峰方案否决，不改代码，§17 已记录确认）；② 授权 commit 本轮 7 文件修订；③ 授权 `git remote add origin … && git push -u origin main`。本提交即上述授权的执行；推送回执以远端 `origin/main` 与聊天报告为准。
+
+## E10 · 2026-11-26 22:52 · RC 0.1.0-rc.1 发布执行
+
+**发布前审计**（同日实测）：package.json 0.1.0 / lock 双位同步；分支 `main`；HEAD `bb83467` = `origin/main`（远端 API 复核）；工作区 clean（除审计发现的日期修正）；注册表 `include:cealum-tint enabled:true fiberPhase:active patchId:cealum-tint`（total 245，list_plugins 实测）；`build` 产物 2.5kB/19.6kB(13 modules)；`npm test` 与 `npm run verify` **58/58 ×2 通过**。文档检查修正 12 处日期误记（2026-11-27 → 2026-11-26，提交 `f0d0d8a` 已推送）。
+
+| 步骤 | 操作 | 回执 |
+|---|---|---|
+| 1 | 用户三确认：日期修正提交 / RC 版本化（方案 A）/ Pre-release | ask 回执在案 |
+| 2 | `git commit` 日期修正 `f0d0d8a` + push | `bb83467..f0d0d8a main -> main` ✅ |
+| 3 | `npm version 0.1.0-rc.1 --tag-version-prefix v -m "release: v%s — Cealum Tint RC（命名定稿 E9 后标注）"` | pkg/lock-root/lock-pkgs 三处 `0.1.0-rc.1`；提交 `7a3edeb`；**annotated tag** `v0.1.0-rc.1`（`git cat-file -t` = tag）✅ |
+| 4 | 推送 `main` 与 `v0.1.0-rc.1` | `* [new tag] v0.1.0-rc.1 -> v0.1.0-rc.1` ✅（main 同链推送） |
+| 5 | `gh release create v0.1.0-rc.1 --prerelease --target main`（Pre-release，无附件） | `https://github.com/mycherish/dsh-plugin-cealum-tint/releases/tag/v0.1.0-rc.1` ✅ |
+
+**Profile 说明**：live link 指向本目录，版本显示随 DSH 下次加载/materialize 生效为 `0.1.0-rc.1`（未手工改 Profile，遵边界）；#18 重启观察项不受影响。
