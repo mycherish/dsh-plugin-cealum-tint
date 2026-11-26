@@ -8,7 +8,7 @@
  * crashed client half (`removeOwnedStyles` in `dsh-client-modules`), so the
  * markers below are both documentation and the cleanup contract.
  */
-import { BUBBLE_CSS, PLUGIN_ID } from '../shared/protocol.ts'
+import { BUBBLE_CSS, PLUGIN_ID, QUESTION_REPLY_CSS } from '../shared/protocol.ts'
 
 /**
  * Styles for the plugin's own settings page. Strictly scoped under the
@@ -58,16 +58,19 @@ export function installStyleTag(css: string, logicalName: string): () => void {
 }
 
 /**
- * Install every stylesheet the plugin owns: the bubble rule first, the
- * settings-page chrome second. Both carry the plugin marker so a crashed
- * client half leaves nothing behind.
- * @returns the disposer removing both elements.
+ * Install every stylesheet the plugin owns: the manual-message bubble rule,
+ * the answered question-reply rule, then the settings-page chrome. All three
+ * carry the plugin marker so a crashed client half leaves nothing behind
+ * (DSH's `removeOwnedStyles` also sweeps `data-plugin="cealum-tint"` tags).
+ * @returns the disposer removing all three elements.
  */
 export function installStyleSheets(): () => void {
   const bubble = installStyleTag(BUBBLE_CSS, `${PLUGIN_ID}/user-bubble.css`)
+  const questionReply = installStyleTag(QUESTION_REPLY_CSS, `${PLUGIN_ID}/question-reply.css`)
   const section = installStyleTag(SECTION_CSS, `${PLUGIN_ID}/section.css`)
   return () => {
     section()
+    questionReply()
     bubble()
   }
 }

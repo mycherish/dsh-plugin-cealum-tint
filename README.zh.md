@@ -39,6 +39,8 @@ Prism / Canvas*、错拼变体 *Caelum Tint*、以及 *User Message Color*；这
   `#RRGGBB`；非法值不会进入 CSS。
 - **文字颜色**——按 WCAG 对比度自动选择黑或白，或手动指定，并提供
   AA/AAA 实时读数。
+- **确认回复**——对 AI 确认问题（询问卡片）提交的回答与手动消息使用
+  完全相同的自定义气泡颜色；未回答的卡片、AI 回复、审批卡片一律原样。
 - **实时预览**——预览使用的正是聊天气泡同一个
   `div[data-message-bubble]` 接缝，预览即所得。
 - **随时关闭**——一键回到原生气泡；样式表回退值指向宿主自己的设计令牌。
@@ -54,18 +56,25 @@ Prism / Canvas*、错拼变体 *Caelum Tint*、以及 *User Message Color*；这
 
 - **Host** 侧只拥有一件事：`cealum-tint` 配置命名空间（五个 `.volatile()`
   字段：`enabled`、`preset`、`bubbleColor`、`textMode`、`textColor`）；
-- **Client** 侧注入一条样式规则——
+- **Client** 侧注入两张样式表——
 
   ```css
+  /* 手动用户消息 */
   div[data-message-bubble]{
+    background-color:var(--cealum-tint-user-bg, var(--dsw-specific-bubble));
+    color:var(--cealum-tint-user-fg, var(--dsw-alias-label-primary));
+  }
+
+  /* 确认流程已回答的回复 */
+  div[data-reply-outcome="answered"] > div:first-child > :first-child{
     background-color:var(--cealum-tint-user-bg, var(--dsw-specific-bubble));
     color:var(--cealum-tint-user-fg, var(--dsw-alias-label-primary));
   }
   ```
 
   外加两个挂在文档元素上的自定义属性。不做主题覆盖、不接管聊天节点、
-  不改写历史：本插件只样式化这一个选择器，只触碰这两个以自己命名的
-  自定义属性。
+  不改写历史：本插件只样式化这两个聊天选择器（手动气泡与已回答的确认
+  回复气泡，声明逐字节一致），只触碰这两个以自己命名的自定义属性。
 
 ## 兼容性自检
 

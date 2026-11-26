@@ -45,6 +45,10 @@ saved settings to `deep-green`.
   upper-case `#RRGGBB`; an invalid value never reaches the CSS.
 - **Text colour** — automatic WCAG-contrast pick (black or white) or an
   explicit colour, with a live AA/AAA read-out.
+- **Confirmation answers** — replies you submit to AI confirmation questions
+  (the ask/answer cards) get the very same custom bubble colour as your
+  manual messages; unanswered cards, AI replies and approval cards stay
+  untouched.
 - **Live preview** rendered with the same `div[data-message-bubble]` seam the
   chat uses, so what you see is what the conversation gets.
 - **Switch off** at any time to restore native bubbles — the stylesheet's
@@ -62,18 +66,27 @@ The bundle has two halves:
 - a **Host** entry that owns the `cealum-tint` configuration namespace
   (five `.volatile()` fields: `enabled`, `preset`, `bubbleColor`, `textMode`,
   `textColor`);
-- a **Client** half that injects one stylesheet —
+- a **Client** half that injects two stylesheets —
 
   ```css
+  /* manual user messages */
   div[data-message-bubble]{
+    background-color:var(--cealum-tint-user-bg, var(--dsw-specific-bubble));
+    color:var(--cealum-tint-user-fg, var(--dsw-alias-label-primary));
+  }
+
+  /* answered confirmation-flow replies */
+  div[data-reply-outcome="answered"] > div:first-child > :first-child{
     background-color:var(--cealum-tint-user-bg, var(--dsw-specific-bubble));
     color:var(--cealum-tint-user-fg, var(--dsw-alias-label-primary));
   }
   ```
 
   — plus two custom properties on the document element. No theme overrides,
-  no chat-node takeover, no history rewriting: the plugin styles exactly one
-  selector and touches exactly two custom properties it names after itself.
+  no chat-node takeover, no history rewriting: the plugin styles exactly two
+  chat selectors (manual bubbles and answered question replies, sharing the
+  same declarations byte for byte) and touches exactly two custom properties
+  it names after itself.
 
 ## Compatibility self-check
 

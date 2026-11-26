@@ -178,3 +178,50 @@ enabled: true                  fiberPhase: active        patchId: cealum-tint
 4. **改预设/阈值**：只动 `src/shared/presets.ts` / `contrast.ts`，重跑 verify 后 `plugin_manager` 卸载→重装（live link 时重启 DSH 即可取新产物）。
 5. **卸载净化**：Plugins 页卸载即走官方 materialize 清理，无需手工清 DOM/变量（验收见 #20 命令）。
 6. **不要**用 `theme.overrideTokens` 或接管 `conversation.chat.node`（会连带染色/可能让消息消失）；构建时保持 react/primitives external。
+
+## 11. 增量：确认回复（question-reply）着色 —— rc.2 变更内容
+
+**需求**（用户 2026-11-26 指令）：AI 确认流程的回答与手动消息使用同一自定义气泡色；只有 `question-reply` 且 `outcome="answered"` 着色，未回答卡片 / AI 回复 / 审批卡一律原样；不改宿主、不加配置、命名空间不变。
+
+**DOM 事实**（编码前从 DSH 0.2.2-rc.5 源码 `dsh-client-ui-user-questions → QuestionReplyView.tsx` 读证）：
+
+```
+div.row[data-question-reply][data-reply-outcome]   ← 全宽行，含 .actions（时间/复制）
+  └─ div.bubbleWidth                               ← 仅限宽，无圆角/内边距
+     └─ UserMessageBubble 根                       ← ★ 真正的气泡（唯一允许着色的元素）
+```
+
+行与 bubbleWidth 一律不染；气泡自身无稳定标记（call site 未传 `data-message-bubble`），故选择器锚定外层语义属性 `data-reply-outcome="answered"` + 静态两级层级：
+
+```
+div[data-reply-outcome="answered"] > div:first-child > :first-child
+```
+
+失配模式是"不染色"而非"染错"（宿主将来加兄弟节点只是静默失配）。`answered` 守卫保证未回答卡片永不命中。
+
+**实现**（复用现有机制，零新增配置/依赖）：
+
+| 文件 | 变更 |
+|---|---|
+| `src/shared/protocol.ts` | 新增导出 `QUESTION_REPLY_SELECTOR` 与 `QUESTION_REPLY_CSS`；**`BUBBLE_CSS` 一字未动**（`config-schema` 的逐字节锁 58 基线零改动） |
+| `src/client/style-tag.ts` | `installStyleSheets()` 加装第三张自标记 `<style>` 标签 `cealum-tint/question-reply.css`，同一 disposer 统一清理（DSH `removeOwnedStyles` 的 `data-plugin="cealum-tint"` 清扫同覆盖） |
+| `tests/question-reply.test.ts` | 新增 11 例：选择器形状 / answered 守卫 / 不染行与 bubbleWidth / 声明块与手动规则逐字节一致（同 var = 同自定义色、同文字色模式、同主题 fallback）/ 无 `!important` 无硬编码色 / AI·审批·问题卡负面断言 / 以最小 fake `document` 走真实 `installStyleSheets` 装卸与恢复回路（无新测试依赖） |
+| `README.md` / `README.zh.md` | 特性条目 + CSS 双规则（声明一致），"只样式化一个选择器"表述更新为两个聊天选择器 |
+
+**验证**（2026-11-26 23:26 实测）：`npm test` 与 `npm run verify`（build + `tsc --noEmit` strict + vitest）→ **69/69 通过（7 文件）**；基线 58 例原样保留、零削弱，新增 11 例全绿；产物冒烟：`client.js` 内两条规则模板 + 三个 `data-plugin-css` 逻辑名（`user-bubble` / `question-reply` / `section`）与 disposer 顺序就位。
+
+**版本**：包/lock 仍为 `0.1.0-rc.1`；计划版本 `0.1.0-rc.2`，**待 GUI 验收与用户确认后方执行 `npm version`**；不触碰 `v0.1.0-rc.1` tag 与 Release。
+
+**GUI 目检清单（§11.1，待用户执行）**：
+
+| # | 项 | 预期 |
+|---|---|---|
+| 1 | 触发一次 `ask_user_question` 并作答 | 回答气泡变自定义色，且为真实气泡形状（圆角），不是整个横条 |
+| 2 | 同一行的"时间 + 复制"区域与横条背景 | 保持原样，不被染色 |
+| 3 | 同会话手动发一条消息 | 手动气泡照常着色（回归） |
+| 4 | 让 AI 正常回复一段文字 / 展示一张审批卡 / 一张未回答的问题卡 | 全部保持原生样式 |
+| 5 | 设置页改自定义色（如 `#245B82`） | 手动气泡与确认回答同步变色 |
+| 6 | 关闭插件开关 | 两类气泡一起回落原生；重开恢复（`question-reply.css` 标签随 disposer 移除/重装） |
+| 7 | 深、浅主题各看一次 | 两色都跟随主题 token 回退正常 |
+
+若需重载 Web 端取新 `client.js`：重启 DSH 或刷新 GUI 会话（live link 指向本目录）。

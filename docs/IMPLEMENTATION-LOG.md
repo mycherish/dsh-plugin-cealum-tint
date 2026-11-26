@@ -239,3 +239,21 @@
 | 5 | `gh release create v0.1.0-rc.1 --prerelease --target main`（Pre-release，无附件） | `https://github.com/mycherish/dsh-plugin-cealum-tint/releases/tag/v0.1.0-rc.1` ✅ |
 
 **Profile 说明**：live link 指向本目录，版本显示随 DSH 下次加载/materialize 生效为 `0.1.0-rc.1`（未手工改 Profile，遵边界）；#18 重启观察项不受影响。
+
+## E11 · 2026-11-26 23:2x · 确认回复（question-reply）着色
+
+**需求与边界**（用户指令，未扩展）：AI 确认流程回答 = 手动消息同色；仅 `question-reply` + `outcome="answered"`；未回答卡 / AI 回复 / 审批卡原样；不改宿主、不加配置项、命名空间 `cealum-tint` 不变、不动 compat 判定；现有 58 测试不得削弱。基线：HEAD `ac0754c`（clean）。
+
+**编码前 DOM 查证**（§二 强制项）：DSH `dsh-client-ui-user-questions → QuestionReplyView.tsx`（0.2.2-rc.5）——`div.row[data-question-reply][data-reply-outcome]` 全宽含 `.actions`；首子 `div.bubbleWidth` 仅限宽；气泡为 `UserMessageBubble` 根（无自身标记，call site 未传 `data-message-bubble`）。结论：只染气泡根，选择器 `div[data-reply-outcome="answered"] > div:first-child > :first-child`（answered 守卫 + 静态两级层级，失配=不染色非染错）。
+
+| 文件 | 变更 |
+|---|---|
+| `src/shared/protocol.ts` | +`QUESTION_REPLY_SELECTOR`（含结构注释）、+`QUESTION_REPLY_CSS`（声明块与 `BUBBLE_CSS` 逐字节一致、同双 var + 同双 `--dsw-*` fallback）；**`BUBBLE_CSS` 零改动**——`config-schema` 的逐字节锁不触碰 |
+| `src/client/style-tag.ts` | 第三张自标记标签 `cealum-tint/question-reply.css`，`installStyleSheets` 同一 disposer 清理（顺序：bubble → question-reply → section） |
+| `tests/question-reply.test.ts` | 新增 11 例：选择器形状/守卫/不染行、声明块一致（自定义色 + 文字色模式 + 主题回退共用）、AI/审批/问题卡负面断言、无 `!important` 无硬编码色、fake `document` 走真实 `installStyleSheets` 的装卸/恢复回路（node 环境零新依赖） |
+| `README.md` / `README.zh.md` | 特性条目 + 双规则 CSS 块 + "一个选择器"→"两个聊天选择器"表述 |
+| `docs/DELIVERY-REPORT.md` | 新增 §11（实现记录 + GUI 目检清单 §11.1） |
+
+**验证实测**（2026-11-26 23:26）：`npm run verify`（build + tsc strict + vitest）✅ exit 0；**69/69（7 文件）** = 基线 58 原样 + 新增 11；`prettier --check` 改动文件全绿；产物复核：`client.js` 双规则模板、三个 `data-plugin-css` 逻辑名、`specific-bubble` 恰 2 处。
+
+**版本**：仍 `0.1.0-rc.1`；`0.1.0-rc.2` 待 GUI 目检（报告 §11.1）+ 用户确认后执行，不触碰 `v0.1.0-rc.1` tag/Release。 DEVELOPMENT-PLAN §4 表格中"ask_user_question 回填不受影响"一行自本次起由本条目取代（该表为时点审计记录，不回改）。
