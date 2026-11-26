@@ -15,7 +15,7 @@
 | 安装 | ✅ 官方 `plugin_manager` 装至 desktop profile（live link，v0.1.0） |
 | 运行态 | ✅ 注册表 `include:cealum-tint enabled:true fiberPhase:active` |
 | 23 项验收 | **21 ✅ + 2 ⏸观察（#18/#20，经用户同意转日常观察，未标 PASS）** |
-| Git | ✅ `main` @ `7abd362`，审计时工作区 Clean；**〔11-27 复核：远端私有空仓库已建，本地 origin 未配置、推送未执行——见文末附录〕** |
+| Git | ✅ `main` @ `7abd362`，审计时工作区 Clean；**〔11-26 复核：远端私有空仓库已建，本地 origin 未配置、推送未执行——见文末附录〕** |
 
 **标识三层体系（by design，无需改动）**：包名 `dsh-plugin-cealum-tint`（= Loader chunk id）／patch 行 id `cealum-tint`（= 设置命名空间）／显示名 locale meta `Cealum Tint`/`云岫着色`。`cordis.patch.yml` 注释与实施日志 E2 均已声明该语义。
 
@@ -85,7 +85,7 @@
 
 - 分支 `main`；唯一提交 `7abd362`（feat: v0.1.0，41 文件 / 6,050 行）；工作区 Clean。
 - 被跟踪文件 41 个：无 `.env`/secret/日志/node_modules/产物（`git ls-files` 核验）。
-- **远程仓库**〔11-27 复核更新〕：`gh api` 实测——`mycherish/dsh-plugin-cealum-tint` 已创建（11-26 14:34 UTC），**可见性 PRIVATE**，`branches:0` / `size:0`，即**远端为空仓库、尚无任何提交**；本地 `git remote -v` 为空（用户执行的 remote/push 命令在本目录未生效），未擅自代为添加或推送。**本地提交 ≠ 异地备份**，推送动作待用户确认（见文末附录）。
+- **远程仓库**〔11-26 复核更新〕：`gh api` 实测——`mycherish/dsh-plugin-cealum-tint` 已创建（11-26 14:34 UTC），**可见性 PRIVATE**，`branches:0` / `size:0`，即**远端为空仓库、尚无任何提交**；本地 `git remote -v` 为空（用户执行的 remote/push 命令在本目录未生效），未擅自代为添加或推送。**本地提交 ≠ 异地备份**，推送动作待用户确认（见文末附录）。
 - 版本变更记录：IMPLEMENTATION-LOG E0–E8 完整（九阶段），标准 CHANGELOG.md 见 R-2。
 
 **版本建议**
@@ -173,11 +173,11 @@
 |---|---|---|
 | 1. 适合日常稳定使用？ | **✅ 是** | 21 项机器/目检双通过，#19 回环实测，E7 迁移已在真实环境完成，双周实测无回归 |
 | 2. 适合标记 RC？ | **✅ 是 → `0.1.0-rc.1`（tag `v0.1.0-rc.1`，待你确认后创建）** | 功能全集冻结、验收收官、仅剩两项用户侧观察 |
-| 3. 具备公开 GitHub 条件？ | **⚠️ 有条件** | 代码/测试/脚本无密钥零硬编码 ✅；远程仓库已建（私有）、`repository` 字段已补（11-27）；仍需 §3.2 docs 路径脱敏决策 |
+| 3. 具备公开 GitHub 条件？ | **⚠️ 有条件** | 代码/测试/脚本无密钥零硬编码 ✅；远程仓库已建（私有）、`repository` 字段已补（11-26）；仍需 §3.2 docs 路径脱敏决策 |
 | 4. 适合发布 npm？ | **⚠️ 暂缓** | 先做：`npm audit fix --force` 工具链升级并全量回归（§3.3）、R-1/R-3（repository + prepublishOnly）、核对 schemastery license、npm 重名检查。`files` 白名单已就绪 |
 | 5. 1.0.0 前还缺什么 | 见下清单 | — |
 
-**1.0.0 发布前任务清单**：① #18 日常观察收口（下次重启后确认）；② 工具链依漏洞升级（vitest 5 / esbuild 0.28）+ 回归；③ `CHANGELOG.md`；④ ~~`repository/homepage/bugs` 字段~~（✅ 11-27 已补）；⑤ `prepublishOnly` 守卫；⑥ （可选）真实卸载演练记录收口 #20；⑦ （可选）CI。
+**1.0.0 发布前任务清单**：① #18 日常观察收口（下次重启后确认）；② 工具链依漏洞升级（vitest 5 / esbuild 0.28）+ 回归；③ `CHANGELOG.md`；④ ~~`repository/homepage/bugs` 字段~~（✅ 11-26 已补）；⑤ `prepublishOnly` 守卫；⑥ （可选）真实卸载演练记录收口 #20；⑦ （可选）CI。
 
 > 注：#18/#20 两项暂缓不影响完成度判断——它们分别属"已由持久化证据兜底的观察项"与"需破坏性操作才能验证的项"，均已在中国用户明示同意的处置路径上；验收表如实标注，未冒充 PASS。
 
@@ -191,13 +191,13 @@
 
 ---
 
-## 附录 · 2026-11-27 复核更新（命名统一 + GitHub 信息核验轮）
+## 附录 · 2026-11-26 复核更新（命名统一 + GitHub 信息核验轮）
 
 - **远端仓库实测**（`gh api repos/mycherish/dsh-plugin-cealum-tint`）：已创建 2026-11-26 14:34 UTC，**visibility: PRIVATE**；`/branches` 计数 **0**、`size: 0` → **空仓库，无任何提交**。
 - **本地 remote 实测**：`git remote -v` 为空；`git ls-remote origin main` 报 `'origin' does not appear to be a git repository` → 用户报告的 `git remote add origin … && git push -u origin main` 在本工作目录**未生效**（无 remote、未推送）。遵任务边界未擅自添加/修改 remote、未推送。
-- **远程推送**：用户已于 2026-11-27 授权并执行 `git remote add origin https://github.com/mycherish/dsh-plugin-cealum-tint.git && git push -u origin main`（过程见实施日志 E9）。
+- **远程推送**：用户已于 2026-11-26 授权并执行 `git remote add origin https://github.com/mycherish/dsh-plugin-cealum-tint.git && git push -u origin main`（过程见实施日志 E9）。
 - **package.json**：补 `repository` / `homepage` / `bugs`（R-1、§8-④ 落实）；`node -e JSON.parse` + prettier 校验通过。
 - **README 双语**：补源码仓库地址、克隆/构建步骤、项目文档索引、贡献指引、命名沿革（弃用名清单 + `chatgpt-green` 迁移别名说明）。
 - **开发计划**：新增 §17 命名规范定稿表（含命名空间 `cealum-tint` vs `cealumTint` 差异备注）；**实施日志**：新增 E9。
 - **命名复核事实**：`Caelum` 错拼 0 处；历史候选名 0 处；`cealumTint` 驼峰 0 处——实际命名空间为 `cealum-tint`（kebab），如实记录、未改码。
-- **工作区当前未提交项**：`docs/RELEASE-READINESS.md`（未跟踪）+ 本轮全部文档/元数据修订（未暂存）。2026-11-27 用户确认：命名空间维持 `cealum-tint`，并授权 commit + remote add + push——全部改动随实施日志 E9 提交并推送至 `origin/main`。
+- **工作区当前未提交项**：`docs/RELEASE-READINESS.md`（未跟踪）+ 本轮全部文档/元数据修订（未暂存）。2026-11-26 用户确认：命名空间维持 `cealum-tint`，并授权 commit + remote add + push——全部改动随实施日志 E9 提交并推送至 `origin/main`。

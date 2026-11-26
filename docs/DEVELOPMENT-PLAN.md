@@ -1007,7 +1007,7 @@ export const Config = z.object({
 
 ---
 
-## 17. 命名规范定稿（2026-11-27 收口）
+## 17. 命名规范定稿（2026-11-26 收口）
 
 本表为全项目命名的唯一权威；早先草案与草稿记录若与本表冲突，以本表为准。背景与核验过程见实施日志 E9。
 
@@ -1020,8 +1020,8 @@ export const Config = z.object({
 | DSH 插件 ID | `cealum-tint` | `cordis.patch.yml` 行 id（**= 设置命名空间**） | 见下方 ⚠ 备注 |
 | CSS 前缀 | `cealum-tint-` | `--cealum-tint-user-bg/--cealum-tint-user-fg`、`data-plugin="cealum-tint"`、样式表标记 | |
 | 默认色 | `#2C6732` | 预置 id `deep-green`（旧值 `chatgpt-green` 仅作迁移别名保留并自动归一） | 迁移兼容代码不得删除 |
-| 源码仓库元数据 | `repository` / `homepage` / `bugs` 指向上述仓库 | package.json（2026-11-27 已补） | |
+| 源码仓库元数据 | `repository` / `homepage` / `bugs` 指向上述仓库 | package.json（2026-11-26 已补） | |
 
-**⚠ 命名空间备注**：命名要求中曾出现 `cealumTint`（驼峰）表述；实际交付与**已持久化配置**使用的命名空间是 **`cealum-tint`**（kebab，即 patch 行 id，`ctx.configForms.get('cealum-tint')`）。二者只能取一个，且必须以真实运行态为准——改成驼峰会使已保存配置失联。**用户已于 2026-11-27 确认维持 `cealum-tint`**，本表如实记录该差异，驼峰方案否决、不改代码。
+**⚠ 命名空间备注**：命名要求中曾出现 `cealumTint`（驼峰）表述；实际交付与**已持久化配置**使用的命名空间是 **`cealum-tint`**（kebab，即 patch 行 id，`ctx.configForms.get('cealum-tint')`）。二者只能取一个，且必须以真实运行态为准——改成驼峰会使已保存配置失联。**用户已于 2026-11-26 确认维持 `cealum-tint`**，本表如实记录该差异，驼峰方案否决、不改代码。
 
 **弃用名单**（设计过程出现过、现已弃用，代码与新增文档一律不得使用）：Cealum Hue、Cealum Chroma、Cealum Bubble、Cealum Glow、Cealum Palette、Cealum Prism、Cealum Canvas、Caelum Tint（错拼变体）、Caelum Bubble、Caelum Chroma、User Message Color。

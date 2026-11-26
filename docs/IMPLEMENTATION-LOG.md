@@ -209,7 +209,7 @@
 
 **Git 初始化**：见仓库首次提交（E8 同日完成，提交内容含全部源码/测试/构建脚本/文档；构建产物 `index.js`/`client.js` 与缓存目录按 `.gitignore` 排除）。
 
-## E9 · 2026-11-27 · 命名统一收口 + GitHub 信息核验
+## E9 · 2026-11-26 · 命名统一收口 + GitHub 信息核验
 
 **背景**：用户在 GitHub 创建仓库并自行执行 `git remote add origin … && git push -u origin main`；本轮任务＝核验真实远端状态（不凭命令回执认定成功）、按最终命名表收口全部文档、补 package.json 仓库元数据。
 
@@ -224,4 +224,4 @@
 
 **测试回归**：未触碰 `src/`、`tests/`，58/58 基线维持（最近实测 2026-11-26 21:49）。
 
-**停止点（已解除）**：报告与 `git diff` 呈现后，用户于 2026-11-27 确认三项——① 命名空间**维持 `cealum-tint`**（`cealumTint` 驼峰方案否决，不改代码，§17 已记录确认）；② 授权 commit 本轮 7 文件修订；③ 授权 `git remote add origin … && git push -u origin main`。本提交即上述授权的执行；推送回执以远端 `origin/main` 与聊天报告为准。
+**停止点（已解除）**：报告与 `git diff` 呈现后，用户于 2026-11-26 确认三项——① 命名空间**维持 `cealum-tint`**（`cealumTint` 驼峰方案否决，不改代码，§17 已记录确认）；② 授权 commit 本轮 7 文件修订；③ 授权 `git remote add origin … && git push -u origin main`。本提交即上述授权的执行；推送回执以远端 `origin/main` 与聊天报告为准。
